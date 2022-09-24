@@ -248,9 +248,10 @@ if (USE_ROBIN_HOOD_HASHING)
     endif()
 endif()
 
+#if(BUILD_LAYERS OR BUILD_TESTS)
 if(BUILD_LAYERS OR BUILD_TESTS)
-    find_package(SPIRV-Headers CONFIG QUIET)
-    if(SPIRV-Headers_FOUND)
+    #find_package(SPIRV-Headers CONFIG QUIET)
+    if(1)
 	# pefer the package if found. Note that if SPIRV_HEADERS_INSTALL_DIR points at an 'installed'
 	# version of SPIRV-Headers, the package will be found.
 	get_target_property(SPIRV_HEADERS_INCLUDE_DIR SPIRV-Headers::SPIRV-Headers INTERFACE_INCLUDE_DIRECTORIES)
