@@ -361,13 +361,20 @@ if(BUILD_LAYERS)
     endif()
 
     # Install the layer json files
+    define_property(TARGET PROPERTY LAYER_JSON)
     foreach(TARGET_NAME ${TARGET_NAMES})
+        set(json_file "")
         if(WIN32)
-            install(FILES $<TARGET_FILE_DIR:${TARGET_NAME}>/${TARGET_NAME}.json
+            set(json_file $<TARGET_FILE_DIR:${TARGET_NAME}>/${TARGET_NAME}.json)
+            install(FILES ${json_file}
                     DESTINATION ${CMAKE_INSTALL_LIBDIR})
         elseif(UNIX)
-            install(FILES ${CMAKE_CURRENT_BINARY_DIR}/staging-json/${TARGET_NAME}.json
+            set(json_file ${CMAKE_CURRENT_BINARY_DIR}/staging-json/${TARGET_NAME}.json)
+            install(FILES ${json_file}
                     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/vulkan/explicit_layer.d)
         endif()
+        # associate the json file to the target and export it. then we can import the json along with the library.
+        set_property(TARGET ${TARGET_NAME} PROPERTY LAYER_JSON ${json_file})
+        set_property(TARGET ${TARGET_NAME} APPEND PROPERTY EXPORT_PROPERTIES LAYER_JSON)
     endforeach()
 endif()
