@@ -361,7 +361,10 @@ if(BUILD_LAYERS)
     endif()
 
     # Install the layer json files
-    define_property(TARGET PROPERTY LAYER_JSON)
+    define_property(TARGET PROPERTY LAYER_JSON
+        BRIEF_DOCS brief_docs ""
+        FULL_DOCS full_docs ""
+        )
     foreach(TARGET_NAME ${TARGET_NAMES})
         set(json_file "")
         if(WIN32)
