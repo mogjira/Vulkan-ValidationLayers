@@ -368,9 +368,10 @@ if(BUILD_LAYERS)
     foreach(TARGET_NAME ${TARGET_NAMES})
         set(json_file "")
         if(WIN32)
-            set(json_file $<TARGET_FILE_DIR:${TARGET_NAME}>/${TARGET_NAME}.json)
+		# the same thing as unix... delete the "if" if this works
+            set(json_file ${CMAKE_CURRENT_BINARY_DIR}/staging-json/${TARGET_NAME}.json)
             install(FILES ${json_file}
-                    DESTINATION ${CMAKE_INSTALL_LIBDIR})
+                    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/vulkan/explicit_layer.d)
         elseif(UNIX)
             set(json_file ${CMAKE_CURRENT_BINARY_DIR}/staging-json/${TARGET_NAME}.json)
             install(FILES ${json_file}
